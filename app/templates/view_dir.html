@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+	<div class="ui row">
+		<div class="ui centered padded column" style="top:50px">
+
+                <div class="ui green secondary segment" style="word-wrap: break-word;">
+                        /{% for id,name in path %}
+                            <a href="{{id}}">{{name | truncate(15)}}</a> /
+                        {% endfor %}
+                        {{folder.name}}
+
+                </div>
+<div class="ui grid">
+  <div class="eight wide column">
+                                          <form method="post" enctype="multipart/form-data">
+                            <div class="ui action input">
+							<input name="new_file" type="file" placeholder="upload a file here...">
+						</div>
+
+                                    <input name="upload_file" type="hidden" value="true"/>
+                                    <!--TODO add csrf token here-->
+                                    <button type ="submit" class="ui button">Upload</button>
+                        </form>
+  </div>
+  <div class="eight wide column">
+
+                        <form method="post">
+                                <div class="ui action input">
+							<input name="new_folder" type="text" placeholder="Create a folder here...">
+						</div>
+
+                                    <input name="create_folder" type="hidden" value="true"/>
+                                    <!--TODO add csrf token here-->
+                                    <button type ="submit" class="ui button">Create</button>
+                        </form>
+  </div>
+</div>
+                <table class="ui single line table" border="0px">
+                    <tbody class="full-width">
+
+
+
+                    {% for folder in sub_folders %}
+                    <tr>
+                        <td class="collapsing" colspan="4">
+                            <a href="{{folder.id}}"><i class="folder icon"> {{ folder.name | truncate(50) }}</i></a>
+                        </td>
+                        <td>
+                        </td>
+                        <td class="collapsing" >
+                            <form method="post">
+                                <input type="hidden" name="delete_folder" value="true">
+                                <input type="hidden" name="delete_folder_id" value="{{folder.id}}">
+                                <button type="submit" class="tiny ui negative button"><i class="icon delete"></i> Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    {% for file in files %}
+                    <tr>
+                        <td class="collapsing single line" colspan="4">
+                            <i class="file icon" />
+                            {{ file.name }}
+
+                        </td>
+                        <td class="collapsing">
+                            <a href="/download/{{file.id}}"><button class="tiny ui positive button"><i class="icon download"></i> Download</button></a>
+                        </td>
+                        <td class="collapsing" >
+                            <form method="post">
+                                <input type="hidden" name="delete_file" value="true">
+                                <input type="hidden" name="delete_file_id" value="{{file.id}}">
+                                <button type="submit" class="tiny ui negative button"><i class="icon delete"></i> Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+
+
+
+
+		</div>
+
+	</div>
+
+
+{% endblock %}

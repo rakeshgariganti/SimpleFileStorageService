@@ -1,0 +1,79 @@
+
+
+<!--
+    Created by rakesh on 7/4/15.
+-->
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta>
+
+
+    <title> File Storage Service </title>
+    <meta name="Description" content="File storage service" />
+<meta name="Keywords" content="storage, s3, awesome" />
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.2/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.2/semantic.min.css">
+
+    <script>
+        $(document).ready(function () {
+
+    });
+    </script>
+
+</head>
+
+<body class="grid" onload="">
+
+
+
+
+    <div class="ui inverted fixed main menu">
+        <div class="container">
+
+
+            <a href="/" class="ui logo item" style="left:100px"><b class="ui small inverted header">File Storage Service</b></a>
+                {% if session.is_logged_in %}
+                    <div class="ui right aligned item green button"><a href="/logout" ><i class="icon edit"></i> Logout</a></div>
+                    <div class="ui right aligned item green"><a href="#" ></i>Logged in as <font color="green">{{ session.username }}</font></a></div>
+                {% else %}
+                    <div class="ui right aligned item green button"><a href="/login" ><i class="icon sign in"></i> Login</a></div>
+                    <div class="ui right aligned item green button"><a href="/register" ><i class="icon sign in"></i> Register</a></div>
+                {% endif %}
+
+        </div>
+    </div>
+
+    <div class="ui centered padded page grid">
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+        <div class="ui row">
+		<div class="ui centered padded column" style="top:50px">
+    {% for category,message in messages %}
+      <div class="ui {{category}} message">{{ message }}</div>
+    {% endfor %}
+            </div></div>
+  {% endif %}
+{% endwith %}
+
+
+            {% block body %}
+            {% endblock %}
+    </div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div class="ui hidden divider"></div>
+            <div id="spot-im-root"></div>
+</body>
+
+</html>
+
+
+
+
